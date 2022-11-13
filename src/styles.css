@@ -1,0 +1,27 @@
+body{
+    font-family: sans-serif;
+    margin: 0;
+}
+
+.container{
+    /* background-color: aqua; */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+input {
+    padding: 15px;
+    border: none;
+    border-bottom: 1px solid #000000;
+    text-align: center;
+  }
+
+input:focus-visible{
+    outline: none;
+}
+
+.yay{
+    width: 100%;
+}
