@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./styles.css";
-import rain from "./img/rain.jpg";
+import { Icon } from '@iconify/react';
 
 function App() {
   const appId = `ae4f8f618394c49b023bdb243bd52dd9`;
@@ -10,28 +10,37 @@ function App() {
   const [longitude, setLongitude] = useState();
   const [id, setId] = useState();
   const [img, setImg] = useState();
+  const [temp, setTemp] = useState();
+  const [humidity, setHumidity] = useState();
+  const [wind, setWind] = useState();
+  const [unit, setUnit] = useState("metric");
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${appId}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setCountry(data.name);
-        setDescription(data.weather[0].description);
-        setId(data.weather[0].id);
+    const fetchData = async () => {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
       });
+
+      await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${appId}&units=${unit}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setCountry(data.name);
+          setDescription(data.weather[0].description);
+          setId(data.weather[0].id);
+          setTemp(data.main.temp);
+          setWind(data.wind.speed);
+          setHumidity(data.main.humidity);
+          check();
+        });
+    };
+    fetchData();
   });
 
   // this gets current location of user
-  function showPosition(position) {
-    setLatitude(position.coords.latitude);
-    setLongitude(position.coords.longitude);
+  function check() {
     if (id >= 200 && id <= 232) {
       setImg(
         "https://raw.githubusercontent.com/Makin-Things/weather-icons/master/animated/scattered-thunderstorms.svg"
@@ -69,29 +78,9 @@ function App() {
         "https://raw.githubusercontent.com/Makin-Things/weather-icons/master/animated/cloudy.svg"
       );
     } else {
-      setImg(rain);
+      setImg();
     }
   }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setCountry(e.target[0].value);
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?appid=${appId}&q=${country}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.weather[0].description);
-
-        setDescription(data.main.description);
-        console.log(description);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-
-    console.log(description);
-  };
 
   return (
     <div className="container">
@@ -99,11 +88,19 @@ function App() {
         <h3>
           Right now in {country}, it's {description}
         </h3>
-        <img className="yay" src={img} alt="weather"></img>
-        <form onSubmit={handleSubmit}>
-          <input type="text" className="" placeholder="Country name" />{" "}
-          <button className="">Check weather</button>
-        </form>
+        <div className="flex content">
+          <img className="pic" src={img} alt="weather"></img>
+          <div className="flex values">
+            <h3><Icon icon="mdi:temperature-high" />{temp}<span id="unit">°C</span></h3>
+            <h3><Icon icon="ph:wind" />{wind}m/s</h3>
+            <h3><Icon icon="carbon:humidity" />{humidity}%</h3>
+          </div>
+
+        </div>
+        <footer className="center">
+          <span className="unit"> °C </span>|
+          <span className="unit"> F </span>
+        </footer>
       </div>
     </div>
   );
