@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./styles.css";
-import { Icon } from '@iconify/react';
+import { Icon } from "@iconify/react";
 
 function App() {
   const appId = `ae4f8f618394c49b023bdb243bd52dd9`;
@@ -34,10 +34,15 @@ function App() {
           setWind(data.wind.speed);
           setHumidity(data.main.humidity);
           check();
+          if (unit ==="metric"){
+            document.getElementById("unit").innerHTML="°C"
+          }else{
+            document.getElementById("unit").innerHTML="F"
+          }
         });
     };
     fetchData();
-  });
+  },[unit,country]);
 
   // this gets current location of user
   function check() {
@@ -85,21 +90,47 @@ function App() {
   return (
     <div className="container">
       <div className="app">
-        <h3>
+        <h3 className="center">
           Right now in {country}, it's {description}
         </h3>
         <div className="flex content">
           <img className="pic" src={img} alt="weather"></img>
           <div className="flex values">
-            <h3><Icon icon="mdi:temperature-high" />{temp}<span id="unit">°C</span></h3>
-            <h3><Icon icon="ph:wind" />{wind}m/s</h3>
-            <h3><Icon icon="carbon:humidity" />{humidity}%</h3>
+            <h2>
+              <Icon icon="mdi:temperature-high" />
+              {temp}
+              <span id="unit">°C</span>
+            </h2>
+            <h2>
+              <Icon icon="ph:wind" />
+              {wind}m/s
+            </h2>
+            <h2>
+              <Icon icon="carbon:humidity" />
+              {humidity}%
+            </h2>
           </div>
-
         </div>
         <footer className="center">
-          <span className="unit"> °C </span>|
-          <span className="unit"> F </span>
+          <span
+            className="unit"
+            onClick={() => {
+              setUnit("metric");
+            }}
+          >
+            {" "}
+            °C{" "}
+          </span>
+          |
+          <span
+            className="unit"
+            onClick={() => {
+              setUnit("imperial");
+            }}
+          >
+            {" "}
+            F{" "}
+          </span>
         </footer>
       </div>
     </div>

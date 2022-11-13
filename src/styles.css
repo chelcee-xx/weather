@@ -4,8 +4,16 @@ body{
     background: url("https://upload.wikimedia.org/wikipedia/commons/f/fc/Thunder_lightning_Garajau_Madeira_289985700.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    box-sizing: border-box;
 }
 
+h2{
+    color: #861657;
+}
+
+h3{
+    color: #483D3F;
+}
 .container{
     /* background-color: aqua; */
     height: 100vh;
@@ -22,7 +30,7 @@ body{
     background-color: #FF66D8;
     padding: 2rem;
     border-radius: 8px;
-    /* width: 80%; */
+    width: 50%;
 }
 
 .flex{
@@ -48,11 +56,15 @@ input:focus-visible{
 }
 
 .pic{
-    width: 100%;
+    width: 50%;
 }
 
+.iconify{
+    text-align: center;
+}
 .unit{
     cursor: pointer;
+    font-weight: 700;
 }
 
 .unit:hover{
