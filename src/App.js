@@ -42,7 +42,7 @@ function App() {
         });
     };
     fetchData();
-  },[unit,country]);
+  },[country,unit,latitude,longitude]);
 
   // this gets current location of user
   function check() {
@@ -99,7 +99,7 @@ function App() {
             <h2>
               <Icon icon="mdi:temperature-high" />
               {temp}
-              <span id="unit">°C</span>
+              <span id="unit" >°C</span>
             </h2>
             <h2>
               <Icon icon="ph:wind" />
@@ -113,9 +113,12 @@ function App() {
         </div>
         <footer className="center">
           <span
-            className="unit"
+            className="unit active"
+            id="cel"
             onClick={() => {
               setUnit("metric");
+              document.getElementById("cel").classList.add("active");
+              document.getElementById("far").classList.remove("active");
             }}
           >
             {" "}
@@ -124,8 +127,11 @@ function App() {
           |
           <span
             className="unit"
+            id="far"
             onClick={() => {
               setUnit("imperial");
+              document.getElementById("far").classList.add("active");
+              document.getElementById("cel").classList.remove("active");
             }}
           >
             {" "}

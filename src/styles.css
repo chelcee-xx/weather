@@ -8,7 +8,10 @@ body{
 }
 
 h2{
+    display: inline-flex;
     color: #861657;
+    align-items: center;
+    
 }
 
 h3{
@@ -28,6 +31,7 @@ h3{
 
 .app{
     background-color: #FF66D8;
+    opacity: 0.9;
     padding: 2rem;
     border-radius: 8px;
     width: 50%;
@@ -38,11 +42,13 @@ h3{
 }
 
 .content{
+align-items: center;
 
 }
 
 .values{
     flex-direction: column;
+    margin-left: 30px;
 }
 input {
     padding: 15px;
@@ -57,16 +63,42 @@ input:focus-visible{
 
 .pic{
     width: 50%;
+    position: relative;
+    top: 29px;
+    z-index: 1;
 }
 
 .iconify{
     text-align: center;
+    margin-right: 12px;
 }
 .unit{
     cursor: pointer;
     font-weight: 700;
+    position: relative;
+    z-index: 2;
 }
 
-.unit:hover{
-    color: #F4EBD9;
+.unit:hover, .active{
+    color: #cebd9b;
 }
+
+@media only screen and (max-width: 600px) {
+    h2{
+        /* font-size: 2rem; */
+    }
+    .app {
+      width: 65%;
+    }
+    .pic{
+      width: 100%;
+        position: static;
+    }
+    .content{
+        flex-direction: column;
+    }
+    .values{
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+  }
