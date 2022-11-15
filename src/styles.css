@@ -80,13 +80,11 @@ input:focus-visible{
 }
 
 .unit:hover, .active{
-    color: #cebd9b;
+    color: #fcfbf8;
 }
 
 @media only screen and (max-width: 600px) {
-    h2{
-        /* font-size: 2rem; */
-    }
+
     .app {
       width: 65%;
     }

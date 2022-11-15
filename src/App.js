@@ -36,7 +36,9 @@ function App() {
           check();
           if (unit ==="metric"){
             document.getElementById("unit").innerHTML="°C"
+            document.getElementById("speed").innerHTML="m/s"
           }else{
+            document.getElementById("speed").innerHTML="mph"
             document.getElementById("unit").innerHTML="F"
           }
         });
@@ -103,7 +105,7 @@ function App() {
             </h2>
             <h2>
               <Icon icon="ph:wind" />
-              {wind}m/s
+              {wind} <span id="speed">m/s</span>
             </h2>
             <h2>
               <Icon icon="carbon:humidity" />
